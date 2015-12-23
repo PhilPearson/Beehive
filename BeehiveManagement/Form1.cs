@@ -21,15 +21,15 @@ namespace BeehiveManagement
 			Worker[] workers = new Worker[4];
 
 			//create the workers, assigning each to a job role
-			workers[0] = new Worker(new string[] { "Nectar collector", "Honey manufacturing" });
-			workers[1] = new Worker(new string[] { "Egg care", "Baby bee tutoring" });
-			workers[2] = new Worker(new string[] { "Hive maintenance", "Sting patrol" });
+			workers[0] = new Worker(new string[] { "Nectar collector", "Honey manufacturing" }, 175);
+			workers[1] = new Worker(new string[] { "Egg care", "Baby bee tutoring" },114);
+			workers[2] = new Worker(new string[] { "Hive maintenance", "Sting patrol" },149);
 			workers[3] = new Worker(new string[] { "Nectar collector", "Honey manufacturing",
 													"Egg care", "Baby bee tutoring",
-													"Hive maintenance", "Sting patrol"});
+													"Hive maintenance", "Sting patrol"},155);
 			
 			//assign the queen object and pass in the array of workers
-			queen = new Queen(workers);
+			queen = new Queen(workers, 175);
 		}
 
 		private void btnAssignJobToBee_Click(object sender, EventArgs e) {

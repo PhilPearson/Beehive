@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace BeehiveManagement
 {
-	class Queen
+	class Queen : Bee
 	{
 		//create array to store workers in, constructor needs an array of workers
 		private Worker[] workers;
-		public Queen(Worker[] workers) {
+		public Queen(Worker[] workers, int weight)
+			: base(weight){
 			this.workers = workers;
 		}
 
@@ -26,6 +27,11 @@ namespace BeehiveManagement
 		}
 
 		public string WorkTheNextShift() {
+
+			double totalConsumption = 0;
+			for (int i = 0; i < workers.Length; i++)
+				totalConsumption += GetHoneyConsumption();
+
 			shiftNumber++;
 			string report = "Report for shift #" + shiftNumber + "\r\n";
 			for(int i =0;i<workers.Length; i++) {
@@ -40,7 +46,28 @@ namespace BeehiveManagement
 						report += "Worker #" + (i + 1) + " will be done with '" + workers[i].CurrentJob + "' after this shift\r\n";
 				}
 			}
+
+			report += "Total honey consumption: " + totalConsumption + " units";
 			return report;
+		}
+
+		public override double GetHoneyConsumption() {
+			double consumption = 0;
+			double largestWorkerConsumption = 0;
+			int workersDoingJobs = 0;
+			for(int i =0; i<workers.Length; i++) {
+				if (workers[i].GetHoneyConsumption() > largestWorkerConsumption)
+					largestWorkerConsumption = workers[i].GetHoneyConsumption();
+				if (workers[i].ShiftsLeft > 0)
+					workersDoingJobs++;
+			}
+			consumption += largestWorkerConsumption;
+			if (workersDoingJobs >= 3)
+				consumption += 30;
+			else
+				consumption += 20;
+
+			return consumption;
 		}
 	}
 }

@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 
 namespace BeehiveManagement
 {
-	class Worker
+	class Worker : Bee
 	{
 		//constructor requires an array of jobs
 		private string[] jobsICanDo;
-		public Worker(string[] jobsICanDo) {
+		public Worker(string[] jobsICanDo, int weight)
+			: base(weight) {
 			this.jobsICanDo = jobsICanDo;
 		}
 
 		//variable for number of shifts worked, method to return number of shifts left
 		private int shiftsToWork;
 		private int shiftsWorked;
-		public int ShiftsLeft {
+		public override int ShiftsLeft {
 			get {
 				return shiftsToWork - shiftsWorked;
 			}
 		}
-
+		
 		//variable to store current job, method to return current job
 		private string currentJob = "";
 		public string CurrentJob {
